@@ -1,0 +1,6 @@
+C:\code\POCs\memhunter\utilities\mnetpayload\bin\Release\mnetpayload.dll
+C:\code\POCs\memhunter\utilities\mnetpayload\bin\Release\mnetpayload.pdb
+C:\code\POCs\memhunter\utilities\mnetpayload\obj\Release\mnetpayload.csprojAssemblyReference.cache
+C:\code\POCs\memhunter\utilities\mnetpayload\obj\Release\mnetpayload.csproj.CoreCompileInputs.cache
+C:\code\POCs\memhunter\utilities\mnetpayload\obj\Release\mnetpayload.dll
+C:\code\POCs\memhunter\utilities\mnetpayload\obj\Release\mnetpayload.pdb

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)\utilities\common\dllcommon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\common\dllcommon.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\common\customwintypes.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\mexecpayload\mexecpayload.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{328bf44c-b867-4d6c-8716-3ad08ae28512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{aad7d0ee-844e-4ab2-9760-31576178f800}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Hunters">
+      <UniqueIdentifier>{28d761d8-853e-4ac1-9bf8-cff82cef4c52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{7eca9641-e674-4a06-a3ba-70cbcfd38560}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\configmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\huntersmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\reportmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\memhunter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\servicemanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hunters\suspiciousmodules.cpp">
+      <Filter>Source Files\Hunters</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hunters\suspiciousregions.cpp">
+      <Filter>Source Files\Hunters</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hunters\suspiciousthreads.cpp">
+      <Filter>Source Files\Hunters</Filter>
+    </ClCompile>
+    <ClCompile Include="src\huntersorchestration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\krabs\krabs.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hunters\suspiciouscallstack.cpp">
+      <Filter>Source Files\Hunters</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hunters\suspiciousexports.cpp">
+      <Filter>Source Files\Hunters</Filter>
+    </ClCompile>
+    <ClCompile Include="src\helpers.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hunters\suspiciousregistrypersistence.cpp">
+      <Filter>Source Files\Hunters</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hunters\suspicioushollowedmodules.cpp">
+      <Filter>Source Files\Hunters</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hunters\suspiciousparents.cpp">
+      <Filter>Source Files\Hunters</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hunters\suspiciousshellcode.cpp">
+      <Filter>Source Files\Hunters</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\tokenutils\tokenutils.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\configmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\customtypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\helpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\reportmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\servicemanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cmdparser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hunter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hunters\suspiciousmodules.h">
+      <Filter>Source Files\Hunters</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hunters\suspiciousregions.h">
+      <Filter>Source Files\Hunters</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hunters\suspiciousthreads.h">
+      <Filter>Source Files\Hunters</Filter>
+    </ClInclude>
+    <ClInclude Include="include\huntersorchestration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hunters\suspiciouscallstack.h">
+      <Filter>Source Files\Hunters</Filter>
+    </ClInclude>
+    <ClInclude Include="include\filelogging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hunters\suspiciousexports.h">
+      <Filter>Source Files\Hunters</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hunters\suspiciousregistrypersistence.h">
+      <Filter>Source Files\Hunters</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hunters\suspicioushollowedmodules.h">
+      <Filter>Source Files\Hunters</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hunters\suspiciousparents.h">
+      <Filter>Source Files\Hunters</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hunters\suspiciousshellcode.h">
+      <Filter>Source Files\Hunters</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\tokenutils\tokenutils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

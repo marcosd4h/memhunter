@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Injectors">
+      <UniqueIdentifier>{d736b0b1-15c8-498d-973a-8b70a0977c0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Injectors\hasherezade_process_doppel">
+      <UniqueIdentifier>{b307595a-80a0-467b-bdb5-0809ebf8204d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\getProcAddressR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\helpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\injectorManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\loadLibraryR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\minjector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\injectors\inj_create_remote_thread.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\injectors\inj_process_hollowing.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\injectors\inj_queue_user_apc.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\injectors\inj_reflective_dll_injection.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\injectors\inj_set_windows_hook_ex.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\injectors\inj_shellcode_dll_injection.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\utilities\minjector\injectors\inj_suspend_inject_resume.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="injectors\inj_image_mapping.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="injectors\inj_thread_reuse.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="injectors\inj_net_module.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="injectors\inj_process_doppelganging.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="injectors\hasherezade_process_doppel\pe_hdrs_helper.cpp">
+      <Filter>Injectors\hasherezade_process_doppel</Filter>
+    </ClCompile>
+    <ClCompile Include="injectors\hasherezade_process_doppel\util.cpp">
+      <Filter>Injectors\hasherezade_process_doppel</Filter>
+    </ClCompile>
+    <ClCompile Include="injectors\inj_powerloader_ex.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="injectors\inj_appinit_dll_injection.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="injectors\inj_ifeo_process_creation.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+    <ClCompile Include="injectors\inj_create_remote_thread_stealth.cpp">
+      <Filter>Injectors</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)\utilities\common\customwintypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\cmdparser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\injector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\injectorManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\injectors\inj_process_hollowing.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\injectors\inj_queue_user_apc.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\injectors\inj_create_remote_thread.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\injectors\inj_reflective_dll_injection.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\injectors\inj_set_windows_hook_ex.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\injectors\inj_shellcode_dll_injection.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\utilities\minjector\injectors\inj_suspend_inject_resume.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\inj_image_mapping.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\inj_thread_reuse.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\inj_net_module.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\inj_process_doppelganging.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\hasherezade_process_doppel\ntdll_types.h">
+      <Filter>Injectors\hasherezade_process_doppel</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\hasherezade_process_doppel\ntdll_undoc.h">
+      <Filter>Injectors\hasherezade_process_doppel</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\hasherezade_process_doppel\pe_hdrs_helper.h">
+      <Filter>Injectors\hasherezade_process_doppel</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\hasherezade_process_doppel\util.h">
+      <Filter>Injectors\hasherezade_process_doppel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\customtypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\inj_powerloader_ex.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\inj_appinit_dll_injection.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\inj_ifeo_process_creation.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+    <ClInclude Include="injectors\inj_create_remote_thread_stealth.h">
+      <Filter>Injectors</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

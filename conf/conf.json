@@ -1,0 +1,26 @@
+{
+  "enabledHunters": [],
+  "dissolvableMode": false,
+  "fpMitigations": true,
+  "verboseMode": "regular",
+  "reportMode": "console",
+  "yaraPath": "",
+  "virustTotalPath": "",
+  "workerHunterThreads": 1,
+  "workerOrchestrationThreads": 1,
+  "exclusionList": {
+    "files": [
+      {
+        "process": "explorer.exe",
+      },
+      {
+        "process": "svchost.exe"
+      },
+      {
+        "process": "custom.exe",
+        "filehash": "9DB6E019D4F04EF534D0F91B3462D805C40E9D20"
+      }
+    ]
+  }
+}
+
