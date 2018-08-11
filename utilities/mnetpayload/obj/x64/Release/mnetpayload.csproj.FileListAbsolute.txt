@@ -4,3 +4,9 @@ C:\code\POCs\memhunter\utilities\mnetpayload\obj\x64\Release\mnetpayload.csprojA
 C:\code\POCs\memhunter\utilities\mnetpayload\obj\x64\Release\mnetpayload.csproj.CoreCompileInputs.cache
 C:\code\POCs\memhunter\utilities\mnetpayload\obj\x64\Release\mnetpayload.dll
 C:\code\POCs\memhunter\utilities\mnetpayload\obj\x64\Release\mnetpayload.pdb
+C:\code\github\memhunter\build\x64\Release\mnetpayload.dll
+C:\code\github\memhunter\build\x64\Release\mnetpayload.pdb
+C:\code\github\memhunter\utilities\mnetpayload\obj\x64\Release\mnetpayload.csprojAssemblyReference.cache
+C:\code\github\memhunter\utilities\mnetpayload\obj\x64\Release\mnetpayload.csproj.CoreCompileInputs.cache
+C:\code\github\memhunter\utilities\mnetpayload\obj\x64\Release\mnetpayload.dll
+C:\code\github\memhunter\utilities\mnetpayload\obj\x64\Release\mnetpayload.pdb

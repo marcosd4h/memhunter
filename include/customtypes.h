@@ -25,7 +25,7 @@ namespace CustomDefs
 	static const std::wstring DEFAULT_CSV_COLON_SEP = L";";
 	static const std::wstring DEFAULT_CSV_COMMA_SEP = L",";
 	static const std::wstring DEFAULT_RET_SEP = L"\n";
-
+	static const std::wstring DEFAULT_DB_NAME = L"huntingdb.db";
 	static const std::wstring DEFAULT_SYSTEM32_DIRECTORY = L"c:\\windows\\system32\\";
 
 	//Signatures Constants
@@ -317,6 +317,82 @@ namespace HunterCommon
 		size_t patternSize;
 	};
 	typedef std::shared_ptr<PatternData> PatternDataPtr;
+
+	struct ETWRemoteProcessData
+	{
+		ETWRemoteProcessData() :
+			UniqueProcessKey(0),
+			ProcessId(0),
+			ParentId(0),
+			SessionId(0),
+			ExitStatus(0),
+			ImageFileName(""),
+			CommandLine(""),
+			ProcessEnded(0),
+			StartTime(0),
+			EndTime(0) {}
+
+		size_t UniqueProcessKey;
+		uint32_t ProcessId;
+		uint32_t ParentId;
+		uint32_t SessionId;
+		uint32_t ExitStatus;
+		std::string ImageFileName;
+		std::string CommandLine;
+		uint32_t ProcessEnded;
+		LONGLONG StartTime;
+		LONGLONG EndTime;
+	};
+
+	struct ETWRemoteThreadData
+	{
+		ETWRemoteThreadData() :
+			ProcessId(0),
+			TThreadId(0),
+			CallerProcessId(0),
+			CallerTThreadId(0),
+			BasePriority(0),
+			PagePriority(0),
+			IoPriority(0),
+			ThreadFlags(0),
+			Win32StartAddr(0),
+			TebBase(0),
+			ThreadEnded(0),
+			StartTime(0),
+			EndTime(0) {}
+
+		uint32_t ProcessId;
+		uint32_t TThreadId;
+		uint32_t CallerProcessId;
+		uint32_t CallerTThreadId;
+		uint32_t BasePriority;
+		uint32_t PagePriority;
+		uint32_t IoPriority;
+		uint32_t ThreadFlags;
+		size_t Win32StartAddr;
+		size_t TebBase;
+		uint32_t ThreadEnded;
+		LONGLONG StartTime;
+		LONGLONG EndTime;
+	};
+
+	struct ETWRemoteAllocData
+	{
+		ETWRemoteAllocData() :
+			ProcessId(0),
+			CallerProcessId(0),
+			CallerTThreadId(0),
+			BaseAddress(0),
+			Flags(0),
+			AllocationTimestamp(0) {}
+
+		uint32_t ProcessId;
+		uint32_t CallerProcessId;
+		uint32_t CallerTThreadId;
+		size_t BaseAddress;
+		uint32_t Flags;
+		LONGLONG AllocationTimestamp;
+	};
 }
 
 namespace CustomWinTypes

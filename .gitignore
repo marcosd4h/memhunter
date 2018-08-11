@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/build
+/int
+/utilities/mnetpayload/bin
+/utilities/mnetpayload/obj
+/.memhunter.vcxproj.user
+/.memhunter.log

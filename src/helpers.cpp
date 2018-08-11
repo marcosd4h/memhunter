@@ -712,6 +712,27 @@ namespace GeneralHelpers
 		return ret;
 	}
 
+	bool GetUserProfileDirectory(std::wstring &userdir)
+	{
+		bool ret = false;
+		WCHAR path[MAX_PATH + 1];
+		if (SHGetSpecialFolderPathW(NULL, path, CSIDL_APPDATA, FALSE))
+		{
+			userdir.assign(path);
+			ret = true;
+		}
+
+		return ret;
+	}
+
+	bool GetProcessnameByPID(DWORD pid, std::wstring &processName)
+	{
+		bool ret = false;
+		//todo fix this
+
+		return ret;
+	}
+
 	std::wstring GetBaseFileName(const std::wstring &fullPath)
 	{
 		std::wstring ret;
@@ -2060,7 +2081,7 @@ namespace HunterHelpers
 			"Yes" when asked to install and run the signed
 			subject.
 			*/
-			//wprintf_s(L"The file \"%s\" is signed and the signature "
+			//TraceHelpers::TraceConsoleDown("The file \"%s\" is signed and the signature "
 			//	L"was verified.\n",
 			//	pwszSourceFile);
 			retValue = true;
@@ -2077,14 +2098,14 @@ namespace HunterHelpers
 				TRUST_E_PROVIDER_UNKNOWN == dwLastError)
 			{
 				// The file was not signed.
-				//wprintf_s(L"The file \"%s\" is not signed.\n",
+				//TraceHelpers::TraceConsoleDown("The file \"%s\" is not signed.\n",
 				//	pwszSourceFile);
 			}
 			else
 			{
 				// The signature was not valid or there was an error 
 				// opening the file.
-				//wprintf_s(L"An unknown error occurred trying to "
+				//TraceHelpers::TraceConsoleDown(L"An unknown error occurred trying to "
 				//	L"verify the signature of the \"%s\" file.\n",
 				//	pwszSourceFile);
 			}
@@ -2094,13 +2115,13 @@ namespace HunterHelpers
 		case TRUST_E_EXPLICIT_DISTRUST:
 			// The hash that represents the subject or the publisher 
 			// is not allowed by the admin or user.
-			//wprintf_s(L"The signature is present, but specifically "
+			//TraceHelpers::TraceConsoleDown("The signature is present, but specifically "
 			//	L"disallowed.\n");
 			break;
 
 		case TRUST_E_SUBJECT_NOT_TRUSTED:
 			// The user clicked "No" when asked to install and run.
-			//wprintf_s(L"The signature is present, but not "
+			//TraceHelpers::TraceConsoleDown("The signature is present, but not "
 			//	L"trusted.\n");
 			break;
 
@@ -2111,7 +2132,7 @@ namespace HunterHelpers
 			admin policy has disabled user trust. No signature,
 			publisher or time stamp errors.
 			*/
-			//wprintf_s(L"CRYPT_E_SECURITY_SETTINGS - The hash "
+			//TraceHelpers::TraceConsoleDown("CRYPT_E_SECURITY_SETTINGS - The hash "
 			//	L"representing the subject or the publisher wasn't "
 			//	L"explicitly trusted by the admin and admin policy "
 			//	L"has disabled user trust. No signature, publisher "
@@ -2122,7 +2143,7 @@ namespace HunterHelpers
 			// The UI was disabled in dwUIChoice or the admin policy 
 			// has disabled user trust. lStatus contains the 
 			// publisher or time stamp chain error.
-			//wprintf_s(L"Error is: 0x%x.\n",
+			//TraceHelpers::TraceConsoleDown("Error is: 0x%x.\n",
 			//	lStatus);
 			break;
 		}
@@ -2170,7 +2191,7 @@ namespace HunterHelpers
 			NULL))
 		{
 			//nRetCode = GetLastError();
-			//printf("Error [%#x]: CryptQueryObject() failed.\n", nRetCode);
+			//TraceHelpers::TraceConsoleDown("Error [%#x]: CryptQueryObject() failed.\n", nRetCode);
 			return(retValue);
 		}
 
@@ -2185,14 +2206,14 @@ namespace HunterHelpers
 			&cbData))
 		{
 			//nRetCode = GetLastError();
-			//printf("Error [%#x]: CryptMsgGetParam() failed.\n", nRetCode);
+			//TraceHelpers::TraceConsoleDown("Error [%#x]: CryptMsgGetParam() failed.\n", nRetCode);
 			return(retValue);
 		}
 
 		if (!(pSignerInfo = (CMSG_SIGNER_INFO *)malloc(cbData)))
 		{
 			//nRetCode = E_OUTOFMEMORY;
-			//printf("Error [%#x]: malloc() failed.\n", nRetCode);
+			//TraceHelpers::TraceConsoleDown("Error [%#x]: malloc() failed.\n", nRetCode);
 			return(retValue);
 		}
 
@@ -2203,7 +2224,7 @@ namespace HunterHelpers
 			&cbData))
 		{
 			//nRetCode = GetLastError();
-			//printf("Error [%#x]: CryptMsgGetParam() failed.\n", nRetCode);
+			//TraceHelpers::TraceConsoleDown("Error [%#x]: CryptMsgGetParam() failed.\n", nRetCode);
 			return(retValue);
 		}
 
@@ -2222,7 +2243,7 @@ namespace HunterHelpers
 		{
 			free(pSignerInfo);
 			//nRetCode = GetLastError();
-			//printf("Error [%#x]: CryptMsgGetParam() failed.\n", nRetCode);
+			//TraceHelpers::TraceConsoleDown("Error [%#x]: CryptMsgGetParam() failed.\n", nRetCode);
 			return(retValue);
 		}
 
@@ -2235,14 +2256,14 @@ namespace HunterHelpers
 		{
 			free(pSignerInfo);
 			//nRetCode = CRYPT_E_NOT_FOUND;
-			//printf("Error [%#x]: CertGetNameString() failed.\n", nRetCode);
+			//TraceHelpers::TraceConsoleDown("Error [%#x]: CertGetNameString() failed.\n", nRetCode);
 			return(retValue);
 		}
 
 		std::wstring cad(pwszSubjectName);
 		retValue = cad;
 		// Display signer's simple name.
-		//printf("%ls was signed by %ls.\n", fileName.c_str(), pwszSubjectName);
+		//TraceHelpers::TraceConsoleDown("%ls was signed by %ls.\n", fileName.c_str(), pwszSubjectName);
 
 		free(pSignerInfo);
 		return retValue;

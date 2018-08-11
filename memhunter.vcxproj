@@ -20,7 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libs\krabs\krabs.cpp" />
-    <ClCompile Include="libs\tokenutils\tokenutils.cpp" />	
+    <ClCompile Include="libs\sqlite_modern_cpp\sqlite3.c" />
+    <ClCompile Include="libs\tokenutils\tokenutils.cpp" />
     <ClCompile Include="src\configmanager.cpp" />
     <ClCompile Include="src\helpers.cpp" />
     <ClCompile Include="src\huntersmanager.cpp" />
@@ -34,12 +35,17 @@
     <ClCompile Include="src\hunters\suspiciousregistrypersistence.cpp" />
     <ClCompile Include="src\hunters\suspiciousshellcode.cpp" />
     <ClCompile Include="src\hunters\suspiciousthreads.cpp" />
+    <ClCompile Include="src\huntingdb.cpp" />
     <ClCompile Include="src\memhunter.cpp" />
     <ClCompile Include="src\reportmanager.cpp" />
     <ClCompile Include="src\servicemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="libs\tokenutils\tokenutils.h" />	  
+    <ClInclude Include="include\huntingdb.h" />
+    <ClInclude Include="libs\include\json.h" />
+    <ClInclude Include="libs\include\krabs.h" />
+    <ClInclude Include="libs\include\sqlite3.h" />
+    <ClInclude Include="libs\tokenutils\tokenutils.h" />
     <ClInclude Include="include\cmdparser.h" />
     <ClInclude Include="include\common.h" />
     <ClInclude Include="include\configmanager.h" />
@@ -115,28 +121,28 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\build\x32\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\int\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)\libs;$(SolutionDir)\libs\include;$(SolutionDir)\libs\Blackbone\src;$(SolutionDir)\include;$(SolutionDir)\src\hunters;$(SolutionDir)\src\collectors;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)\libs;$(SolutionDir)\libs\include;$(SolutionDir)\libs\sqlite_modern_cpp;$(SolutionDir)\libs\Blackbone\src;$(SolutionDir)\include;$(SolutionDir)\src\hunters;$(SolutionDir)\src\collectors;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\build\x64\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\int\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)\libs;$(SolutionDir)\libs\include;$(SolutionDir)\libs\Blackbone\src;$(SolutionDir)\include;$(SolutionDir)\src\hunters;$(SolutionDir)\src\collectors;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)\libs;$(SolutionDir)\libs\include;$(SolutionDir)\libs\sqlite_modern_cpp;$(SolutionDir)\libs\Blackbone\src;$(SolutionDir)\include;$(SolutionDir)\src\hunters;$(SolutionDir)\src\collectors;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\build\x32\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\int\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)\libs;$(SolutionDir)\libs\include;$(SolutionDir)\libs\Blackbone\src;$(SolutionDir)\include;$(SolutionDir)\src\hunters;$(SolutionDir)\src\collectors;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)\libs;$(SolutionDir)\libs\include;$(SolutionDir)\libs\sqlite_modern_cpp;$(SolutionDir)\libs\Blackbone\src;$(SolutionDir)\include;$(SolutionDir)\src\hunters;$(SolutionDir)\src\collectors;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\build\x64\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\int\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)\libs;$(SolutionDir)\libs\include;$(SolutionDir)\libs\Blackbone\src;$(SolutionDir)\include;$(SolutionDir)\src\hunters;$(SolutionDir)\src\collectors;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)\libs;$(SolutionDir)\libs\include;$(SolutionDir)\libs\sqlite_modern_cpp;$(SolutionDir)\libs\Blackbone\src;$(SolutionDir)\include;$(SolutionDir)\src\hunters;$(SolutionDir)\src\collectors;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -145,7 +151,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_SILENCE_CXX17_UNCAUGHT_EXCEPTION_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>4017</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -172,7 +178,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_SILENCE_CXX17_UNCAUGHT_EXCEPTION_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>4017</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -201,7 +207,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_SILENCE_CXX17_UNCAUGHT_EXCEPTION_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>4017</DisableSpecificWarnings>
@@ -231,7 +237,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_SILENCE_CXX17_UNCAUGHT_EXCEPTION_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>4017</DisableSpecificWarnings>

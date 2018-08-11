@@ -444,6 +444,30 @@ const bool ConfigManager::IsProcessExcluded(const std::wstring &processName)
 	return ret;
 }
 
+const bool ConfigManager::IsProcessExcluded(const DWORD &pid)
+{
+	bool ret = false;
+
+	if (IsValidPID(pid))
+	{
+		std::wstring processName;
+		for (auto procIT = m_exclusions.begin(); procIT != m_exclusions.end(); procIT++)
+		{
+			if ((GeneralHelpers::GetProcessnameByPID(pid, processName)) &&
+				(!processName.empty()) &&
+				(!procIT->process.empty()) &&
+				(GeneralHelpers::StrCompare(procIT->process, processName)))
+			{
+				ret = true;
+				break;
+			}
+		}
+	}
+
+	return ret;
+}
+
+
 const bool ConfigManager::IsHunterEnabled(const CustomTypes::HunterID &hunterID)
 {
 	bool ret = false;

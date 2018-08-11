@@ -20,6 +20,7 @@ public:
 	const bool IsDissolvableModeEnabled() { return m_dissolvableMode; }
 	const bool IsFPMitigationLogicEnabled() { return m_fpMitigations; }
 	const bool IsProcessExcluded(const std::wstring &processName);
+	const bool IsProcessExcluded(const DWORD &pid);
 	const bool IsValidPID(const DWORD& pid);
 	const bool IsHunterEnabled(const CustomTypes::HunterID &hunterID);
 

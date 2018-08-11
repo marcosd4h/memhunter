@@ -26,6 +26,7 @@
 #include <cstdarg>
 #include <ctime>
 #include <cstdio>
+#include "krabs.h"
 #include "windows.h"
 #include "stdio.h"
 #include "stdarg.h"
@@ -39,6 +40,7 @@
 #include "wincrypt.h"
 #include "wintrust.h"
 #include "softpub.h"
+#include "sqlite_modern_cpp.h"
 
 //Blackbone includes
 #include <BlackBone/Config.h>
@@ -71,6 +73,7 @@
 #include "reportmanager.h"
 #include "servicemanager.h"
 #include "huntersorchestration.h"
+#include "huntingdb.h"
 
 //Hunters
 #include "suspiciousmodules.h"
@@ -82,6 +85,3 @@
 #include "suspicioushollowedmodules.h"
 #include "suspiciousparents.h"
 #include "suspiciousshellcode.h"
-
-
-

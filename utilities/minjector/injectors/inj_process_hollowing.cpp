@@ -125,7 +125,7 @@ bool InjectorProcessHollowing::Execute(const std::wstring &codeToInject, const s
 											blackbone::ptr_t targetLocation = targetPayloadBuff + sectionsIT->VirtualAddress;
 											blackbone::ptr_t sourceLocation = (((size_t)localPayloadBuff) + sectionsIT->PointerToRawData);
 
-											std::wcout << L"[-] About to write section from payload to target location at 0x" << std::hex << targetLocation << std::endl;
+											std::wcout << L"[+] About to write section from payload to target location at 0x" << std::hex << targetLocation << std::endl;
 											if (magicNativeCalls->WriteProcessMemoryT(targetLocation,
 												(PVOID)sourceLocation,
 												sectionsIT->SizeOfRawData) != ERROR_SUCCESS)

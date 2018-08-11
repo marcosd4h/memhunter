@@ -215,6 +215,7 @@ bool CollectorService::StopService()
 }
 
 
+
 //TODO: Check if service DB is accessible or needs to be regenerated
 bool CollectorService::CheckServiceSanity()
 {
@@ -258,18 +259,153 @@ bool CollectorService::CheckServiceSanity()
 	return ret;
 }
 
+
+bool CollectorService::InitETWCollectionWorker()
+{
+	bool ret = false;
+
+	if (m_kernelTrace)
+	{
+		// ---- Process Provider ---- //
+		krabs::kernel::process_provider processProvider;
+		processProvider.add_on_event_callback([](const EVENT_RECORD &record)
+		{
+			krabs::schema schema(record);
+
+			//process start or end
+			if ((schema.event_opcode() == 1) || (schema.event_opcode() == 2))
+			{
+				HunterCommon::ETWRemoteProcessData data;
+				krabs::parser parser(schema);
+
+				data.UniqueProcessKey = parser.parse<size_t>(L"UniqueProcessKey");
+				data.ProcessId = parser.parse<uint32_t>(L"ProcessId");
+				data.ParentId = parser.parse<std::uint32_t>(L"ParentId");
+				data.SessionId = parser.parse<std::uint32_t>(L"SessionId");
+				data.ExitStatus = 0x00;
+				data.ImageFileName = parser.parse<std::string>(L"ImageFileName");
+				data.CommandLine = parser.parse<std::string>(L"CommandLine");
+				if (schema.event_opcode() == 1)
+				{
+					data.ProcessEnded = 0x0;
+					data.StartTime = record.EventHeader.TimeStamp.QuadPart;
+					data.EndTime = 0x00;
+				}
+				else if (schema.event_opcode() == 2)
+				{
+					data.ProcessEnded = 0x01;
+					data.StartTime = 0x00;
+					data.EndTime = record.EventHeader.TimeStamp.QuadPart;
+				}
+
+				HuntingDB::GetInstance().AddUpdateRemoteProcess(data);
+			}
+		});
+
+		m_kernelTrace->enable(processProvider);
+
+		// ---- Thread Provider ---- //
+		krabs::kernel::thread_provider threadProvider;
+		threadProvider.add_on_event_callback([](const EVENT_RECORD &record)
+		{
+			krabs::schema schema(record);
+			uint32_t callingProcessID = record.EventHeader.ProcessId;
+			uint32_t callingThreadID = record.EventHeader.ThreadId;
+
+			//thread start
+			if (schema.event_opcode() == 1)
+			{
+				krabs::parser parser(schema);
+				std::uint32_t processID = parser.parse<std::uint32_t>(L"ProcessId");
+
+				if ((callingProcessID != processID) && (callingProcessID > 4))
+				{
+					HunterCommon::ETWRemoteThreadData data;
+
+					data.ProcessId = processID;
+					data.TThreadId = parser.parse<uint32_t>(L"TThreadId");
+					data.CallerProcessId = callingProcessID;
+					data.CallerTThreadId = callingThreadID;
+					data.BasePriority = parser.parse<uint8_t>(L"BasePriority");
+					data.PagePriority = parser.parse<uint8_t>(L"PagePriority");
+					data.IoPriority = parser.parse<uint8_t>(L"IoPriority");
+					data.ThreadFlags = parser.parse<uint8_t>(L"ThreadFlags");
+					data.Win32StartAddr = parser.parse<size_t>(L"Win32StartAddr");
+					data.TebBase = parser.parse<size_t>(L"TebBase");
+					data.ThreadEnded = 0x00;
+					data.StartTime = record.EventHeader.TimeStamp.QuadPart;
+					data.EndTime = 0x00;
+
+					HuntingDB::GetInstance().AddUpdateRemoteThread(data);
+				}
+			}
+		});
+
+		m_kernelTrace->enable(threadProvider);
+
+
+		// ---- Vmalloc Provider ---- //
+		krabs::kernel::memory_page_fault_provider memProvider;
+		memProvider.add_on_event_callback([](const EVENT_RECORD &record)
+		{
+			krabs::schema schema(record);
+			uint32_t callingProcessID = record.EventHeader.ProcessId;
+			uint32_t callingThreadID = record.EventHeader.ThreadId;
+
+			if (schema.event_opcode() == 98)
+			{
+				krabs::parser parser(schema);
+
+				std::uint32_t processID = parser.parse<std::uint32_t>(L"ProcessId");
+				std::uint32_t flags = parser.parse<std::uint32_t>(L"Flags");
+				if ((callingProcessID != processID) && (callingProcessID > 4) && (flags & MEM_COMMIT))
+				{
+					HunterCommon::ETWRemoteAllocData data;
+
+					data.CallerProcessId = callingProcessID;
+					data.CallerTThreadId = callingThreadID;
+					data.ProcessId = processID;
+					data.Flags = flags;
+					data.BaseAddress = parser.parse<size_t>(L"BaseAddress");
+					data.AllocationTimestamp = record.EventHeader.TimeStamp.QuadPart;
+
+					HuntingDB::GetInstance().AddUpdateRemoteAlloc(data);
+				}
+			}
+		});
+
+		m_kernelTrace->enable(memProvider);
+
+		ret = true;
+	}
+
+	return ret;
+}
+
 DWORD WINAPI CollectorService::WorkerThread(LPVOID lpParam)
 {
 	DWORD ret = ERROR_SUCCESS;
+	auto collectorService = CollectorService::GetInstance();
 
-	if (CollectorService::GetInstance().ServiceStopEvent)
+	if (collectorService.ServiceStopEvent != INVALID_HANDLE_VALUE)
 	{
-		//Checking if we need to stop periodically
-		while (WaitForSingleObject(CollectorService::GetInstance().ServiceStopEvent, 0) != WAIT_OBJECT_0)
+		//Initializing Collection Workers
+		if (collectorService.InitETWCollectionWorker())
 		{
-			TraceHelpers::TraceUp("--- Checking periodically ---");
-			Sleep(500);
+			collectorService.StartKernelTrace();
+
+
+			//Checking periodically if we need to stop
+			while (WaitForSingleObject(collectorService.ServiceStopEvent, 0) != WAIT_OBJECT_0)
+			{
+				collectorService.StopKernelTrace();
+				Sleep(500);
+			}
 		}
+	}
+	else
+	{
+		ret = ERROR_BAD_ENVIRONMENT;
 	}
 
 	return ret;

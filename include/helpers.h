@@ -36,6 +36,8 @@ namespace GeneralHelpers
 	bool IsElementPresentOnList(const std::vector<std::wstring> &listToCheck, const std::wstring &element);
 	bool TrimSpaces(std::string &str);
 	bool TrimSpaces(std::wstring &str);
+	bool GetUserProfileDirectory(std::wstring &userdir);
+	bool GetProcessnameByPID(DWORD pid, std::wstring &processName);
 	std::wstring GetBaseFileName(const std::wstring &fullPath);
 	std::wstring ToWstring(const unsigned int &value);
 	std::wstring ReplaceTokensInStr(const std::wstring &str, const std::wstring &from, const std::wstring &to);

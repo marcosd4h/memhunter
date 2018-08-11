@@ -15,6 +15,8 @@ public:
 	//Control functions
 	bool RunService();
 	bool StopService();
+	void StartKernelTrace() { if (m_kernelTrace) m_kernelTrace->start(); };
+	void StopKernelTrace() { if (m_kernelTrace) m_kernelTrace->stop(); };
 
 	//Helpers
 	const wchar_t * GetServiceName(){ return m_serviceName.c_str(); };
@@ -32,6 +34,7 @@ private:
 		ServiceStopEvent = INVALID_HANDLE_VALUE;
 		ServiceStatusHandle = NULL;
 		memset(&ServiceStatus, 0, sizeof(ServiceStatus));
+		m_kernelTrace = new krabs::kernel_trace(L"MemhunterETWCollectionTraceSession");
 	};
 
 	~CollectorService()
@@ -45,8 +48,10 @@ private:
 
 	CollectorService(const CollectorService&) {};
 
+	//Workers
+	bool InitETWCollectionWorker();
+
 	//Helpers functions
-	
 	bool WINAPI UpdateServiceStatus(DWORD updateState, DWORD exitCode = NO_ERROR, DWORD waitTime = 0);
 
 	// Static SCM functions
@@ -60,6 +65,7 @@ private:
 	bool Continue();
 	bool Shutdown();
 
-	// The name of the service
+	// Private vars
 	std::wstring m_serviceName;
+	krabs::kernel_trace *m_kernelTrace;
 };
