@@ -1,0 +1,21 @@
+image: Visual Studio 2017
+
+branches:
+  only:
+  - master
+
+clone_depth: 5
+
+version: 0.7.{build}
+
+platform:
+  - x86
+  - x64
+  
+configuration:
+  - Release
+
+build:
+  project: MyTestAzureCS.sln 
+  verbosity: minimal
+  parallel: true
