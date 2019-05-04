@@ -1,4 +1,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/aokyumj3hyx0i8cw/branch/master?svg=true)](https://ci.appveyor.com/project/marcosd4h/memhunter/branch/master)
+https://badgen.net/appveyor/ci/marcosd4h/memhunter
+https://badgen.net/github/last-commit/marcosd4h/memhunter
+https://badgen.net/badge/license/MIT/blue
 
 # Memhunter
 Live memory forensics hunter
