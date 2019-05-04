@@ -1,4 +1,6 @@
-# memhunter
+[![Build status](https://ci.appveyor.com/api/projects/status/aokyumj3hyx0i8cw/branch/master?svg=true)](https://ci.appveyor.com/project/marcosd4h/memhunter/branch/master)
+
+# Memhunter
 Live memory forensics hunter
 
 Memhunter automates the hunting of memory resident malware, improving the threat hunter analysis process and remediation times. The tool detects and reports memory-resident malware living on endpoint processes. Memhunter only works on Windows at the moment, and it detects known malicious memory injection techniques. The detection process is performed through live analysis and without needing memory dumps. The tool was designed as a replacement of memory forensic volatility plugins such as malfind and hollowfind. The idea of not requiring memory dumps helps on performing the memory resident malware threat hunting at scale, without manual analysis, and without the complex infrastructure needed to move dumps to forensic environments.
