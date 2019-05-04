@@ -16,6 +16,6 @@ configuration:
   - Release
 
 build:
-  project: MyTestAzureCS.sln 
+  project: memhunter.sln 
   verbosity: minimal
   parallel: true
