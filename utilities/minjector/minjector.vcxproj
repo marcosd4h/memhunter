@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)\build\x64\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\build\x32\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\int\minjector\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)\utilities\common;$(SolutionDir)\utilities\common;$(SolutionDir)\libs;$(SolutionDir)\libs\include;$(SolutionDir)\libs\Blackbone\src;$(SolutionDir)\libs\libpeconv\libpeconv\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
@@ -85,7 +85,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)\build\x64\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\build\x32\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\int\minjector\$(Configuration)\</IntDir>
     <IncludePath>$(SolutionDir)\utilities\common;$(SolutionDir)\utilities\common;$(SolutionDir)\libs;$(SolutionDir)\libs\include;$(SolutionDir)\libs\Blackbone\src;$(SolutionDir)\libs\libpeconv\libpeconv\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>

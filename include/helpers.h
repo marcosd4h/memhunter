@@ -4,9 +4,11 @@
 
 namespace GeneralHelpers
 {
+	bool StartProcess(const std::wstring &process, const std::wstring &args);
 	int ToInteger(const std::wstring &st);
 	bool IsNumber(const std::wstring& str);
 	bool IsValidFile(const std::wstring &fileName);
+	bool IsValidDirectory(const std::wstring &directory);
 	bool GetFullPathToFile(const std::wstring &fileName, std::wstring &fullPathFile);
 	bool GetTargetFileSize(const std::wstring& file, DWORD &size);
 	bool GetTargetFileIntoBuffer(const std::wstring& file, const DWORD &fileSize, LPVOID lpBuffer, DWORD &bytesRead);
@@ -30,6 +32,7 @@ namespace GeneralHelpers
 	bool IsProcessStillRunning(const HANDLE &hProcess);
 	bool IsThreadStillRunning(const HANDLE &hThread);
 	bool IsDotNETLib(const std::wstring &name);
+
 	bool GetWindowsSystemDirectory(std::wstring &system32Directory);
 	bool GetVectorByToken(const std::string& input, const char token, std::vector<std::string> &vector);
 	bool GetVectorByToken(const std::wstring& input, const wchar_t token, std::vector<std::wstring> &vector);
@@ -70,6 +73,8 @@ namespace TraceHelpers
 namespace RegistryHelpers
 {
 	bool DeleteKey(const HKEY &hRootKey, const std::wstring &regSubKey);
+	bool CreateKey(const HKEY &hRootKey, const std::wstring &regSubKey);
+	bool DeleteValue(const HKEY &hRootKey, const std::wstring &regSubKey, const std::wstring &regValue);
 	bool RegistryKeyExists(const HKEY &hRootKey, const std::wstring &regSubKey);
 	bool RegistryValueExists(const HKEY &hRootKey, const std::wstring &regSubKey, const std::wstring& regValue);
 	bool GetRegStringValue(const HKEY hRootKey, const std::wstring& regSubKey, const std::wstring& regValue, std::wstring &regContent);

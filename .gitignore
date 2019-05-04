@@ -3,5 +3,5 @@
 /int
 /utilities/mnetpayload/bin
 /utilities/mnetpayload/obj
-/.memhunter.vcxproj.user
-/.memhunter.log
+/memhunter.vcxproj.user
+/memhunter.log

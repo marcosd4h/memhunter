@@ -87,6 +87,36 @@ namespace GeneralHelpers
 		return std::stoi(str);
 	}
 
+
+	bool StartProcess(const std::wstring &process, const std::wstring &args)
+	{
+		bool ret = false;
+
+
+		if (!process.empty() && !args.empty())
+		{
+			std::wstring workingArgs(process);
+			workingArgs.append(L" ");
+			workingArgs.append(args);
+
+			STARTUPINFOW si = { 0 };
+			PROCESS_INFORMATION pi = { 0 };
+
+			if (CreateProcessW(
+				process.c_str(),
+				(LPWSTR)workingArgs.c_str(),
+				NULL, NULL, TRUE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi))
+			{
+				WaitForSingleObject(pi.hProcess, INFINITE);
+				CloseHandle(pi.hProcess);
+				CloseHandle(pi.hThread);
+				ret = true;
+			}
+		}
+
+		return ret;
+	}
+
 	bool IsValidFile(const std::wstring &fileName)
 	{
 		bool ret = false;
@@ -104,6 +134,24 @@ namespace GeneralHelpers
 		{
 			ret = true;
 			CloseHandle(hFile);
+		}
+
+		return ret;
+	}
+
+	bool IsValidDirectory(const std::wstring &directory)
+	{
+		bool ret = false;
+
+		if (!directory.empty())
+		{
+			DWORD dwAttrib = GetFileAttributes(directory.c_str());
+
+			if ((dwAttrib != INVALID_FILE_ATTRIBUTES) &&
+				(dwAttrib & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				ret = true;
+			}
 		}
 
 		return ret;
@@ -260,11 +308,14 @@ namespace GeneralHelpers
 
 		if (GetCurrentProcessModuleFullPath(currentExecPath) && !currentExecPath.empty())
 		{
-			if ((_tsplitpath_s(currentExecPath.c_str(), currentDrive, MAX_PATH, currentDir, MAX_PATH, NULL, 0, NULL, 0) != 0) &&
-				(wcslen(currentDir) > 0))
+			if ((_tsplitpath_s(currentExecPath.c_str(), currentDrive, MAX_PATH, currentDir, MAX_PATH, NULL, 0, NULL, 0) == 0))
 			{
-				fullDirectoryPath.assign(currentDir);
-				ret = true;
+				fullDirectoryPath.assign(currentDrive);
+				fullDirectoryPath.append(currentDir);
+				if (!fullDirectoryPath.empty())
+				{
+					ret = true;
+				}
 			}
 		}
 
@@ -328,14 +379,17 @@ namespace GeneralHelpers
 	{
 		bool ret = false;
 
-		std::wstring test1(str);
-		std::wstring test2(pattern);
-		StrToLowercase(test1);
-		StrToLowercase(test2);
-
-		if (test1.find(test2) != std::wstring::npos)
+		if (!str.empty() && !pattern.empty())
 		{
-			ret = true;
+			std::wstring test1(str);
+			std::wstring test2(pattern);
+			StrToLowercase(test1);
+			StrToLowercase(test2);
+
+			if (test1.find(test2) != std::wstring::npos)
+			{
+				ret = true;
+			}
 		}
 
 		return ret;
@@ -380,7 +434,14 @@ namespace GeneralHelpers
 
 		if (IsWow64Process(GetCurrentProcess(), &isWow64Process))
 		{
-			ret = true;
+			if (isWow64Process)
+			{
+				ret = true;
+			}
+			else
+			{
+				ret = false;
+			}			
 		}
 
 		return ret;
@@ -947,7 +1008,6 @@ namespace GeneralHelpers
 		str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
 	}
 
-
 	void StrToUppercase(std::wstring &str)
 	{
 		std::transform(str.begin(), str.end(), str.begin(), ::towupper);
@@ -984,14 +1044,14 @@ namespace RegistryHelpers
 
 		if ((!regSubKey.empty()) && (hRootKey != NULL))
 		{
-			LSTATUS retCode = RegOpenKeyEx(hRootKey, regSubKey.c_str(), NULL, KEY_ALL_ACCESS, &hKey);
+			LSTATUS retCode = RegOpenKeyEx(hRootKey, regSubKey.c_str(), NULL, KEY_ALL_ACCESS | KEY_WOW64_64KEY, &hKey);
 			if (retCode == ERROR_SUCCESS)
 			{
 				ret = true;
 			}
 			else if ((retCode == ERROR_FILE_NOT_FOUND) || (retCode == ERROR_PATH_NOT_FOUND))
 			{
-				if ((RegCreateKeyEx(hRootKey, regSubKey.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL)) == ERROR_SUCCESS)
+				if ((RegCreateKeyEx(hRootKey, regSubKey.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS | KEY_WOW64_64KEY, NULL, &hKey, NULL)) == ERROR_SUCCESS)
 				{
 					ret = true;
 				}
@@ -1021,7 +1081,40 @@ namespace RegistryHelpers
 
 		if ((!regSubKey.empty()) && (hRootKey != NULL) && OpenKey(hRootKey, regSubKey, hKey))
 		{
-			LSTATUS retCode = RegDeleteKey(hRootKey, regSubKey.c_str());
+			LSTATUS retCode = RegDeleteKey(hKey, regSubKey.c_str());
+			if ((retCode == ERROR_SUCCESS) && (CloseKey(hKey)))
+			{
+				ret = true;
+			}
+
+		}
+
+		return ret;
+	}
+
+	bool CreateKey(const HKEY &hRootKey, const std::wstring &regSubKey)
+	{
+		bool ret = false;
+		HKEY hKey = NULL;
+
+		if ((!regSubKey.empty()) && (hRootKey != NULL) && OpenKey(hRootKey, regSubKey, hKey))
+		{
+			ret = true;
+
+			CloseKey(hKey);
+		}
+
+		return ret;
+	}
+
+	bool DeleteValue(const HKEY &hRootKey, const std::wstring &regSubKey, const std::wstring &regValue)
+	{
+		bool ret = false;
+		HKEY hKey = NULL;
+
+		if ((!regSubKey.empty()) && (hRootKey != NULL) && OpenKey(hRootKey, regSubKey, hKey))
+		{
+			LSTATUS retCode = RegDeleteValueW(hKey, regValue.c_str());
 			if ((retCode == ERROR_SUCCESS) && (CloseKey(hKey)))
 			{
 				ret = true;
@@ -1101,7 +1194,7 @@ namespace RegistryHelpers
 		return ret;
 	}
 
-
+	
 	bool SetRegStringValue(const HKEY hRootKey, const std::wstring& regSubKey, const std::wstring& regValue, const std::wstring &regContent)
 	{
 		bool ret = false;
