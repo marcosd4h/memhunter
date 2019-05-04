@@ -17,9 +17,9 @@ contains +15 code injection techniques. The minjector tool cannot onlybe used to
 location to learn on well-known code injection techniques out there.
 
 
-### Example 1: Manual run to exercise reflective DLL injection detection - Video [here](https://www.youtube.com/watch?v=t_fR1sCENkc)
-![Manual run to exercise reflective DLL injection detection](https://thumbs.gfycat.com/FeistyImmaculateGaur-size_restricted.gif)
+### Example 1: Manual run to exercise detection of reflective DLL injection - Video [here](https://www.youtube.com/watch?v=t_fR1sCENkc)
+![Manual run to exercise detection of reflective DLL injection](https://thumbs.gfycat.com/FeistyImmaculateGaur-size_restricted.gif)
 
 
-### Example 2: Manual run to exercise process hollowing injection detection - Video [here](https://www.youtube.com/watch?v=QxCguP76uyg)
-![Manual run to exercise process hollowing injection detection](https://thumbs.gfycat.com/NarrowTidyBlacklemur-size_restricted.gif)
+### Example 2: Manual run to exercise detection of process hollowing injection - Video [here](https://www.youtube.com/watch?v=QxCguP76uyg)
+![Manual run to exercise detection of process hollowing injection](https://thumbs.gfycat.com/NarrowTidyBlacklemur-size_restricted.gif)
