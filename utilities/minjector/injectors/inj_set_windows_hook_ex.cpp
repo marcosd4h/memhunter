@@ -43,36 +43,36 @@ bool InjectorSetWindowsHookEx::Execute(const std::wstring &codeToInject, const s
 							if (handle != NULL) 
 							{
 								std::wcout << L"[+] Triggering the Hook" << std::endl;
+
+								DWORD waitTimeInMS = 5000;
+							    DWORD justSomeMagicIDNumber = 0x4321;
+								static const wchar_t *EVENT_NAME = L"JustSomeMagicEventName";
+								HANDLE syncEvent = CreateEvent(NULL, FALSE, FALSE, EVENT_NAME);
+
 								if (PostThreadMessage(targetdTID, WM_NULL, NULL, NULL))
-								{
-									std::wcout << L"[+] Success! now Placing extra remote hooks" << std::endl;
-			
-									if (targetProc.memory().SetupHook(blackbone::RemoteMemory::MemVirtualAlloc) == ERROR_SUCCESS)
+								{									
+									DWORD waitRet = WaitForSingleObject(syncEvent, waitTimeInMS);
+
+									switch (waitRet)
 									{
-										std::wcout << L"[+] MemVirtualAlloc() remot hook succesfully placed!" << std::endl;
+										case WAIT_OBJECT_0:
+											std::wcout << L"[+] Success! now placing extra remote hooks (this is just exercise Blackbone functionality, not really needed)" << std::endl;
+											std::wcout << L"[+] Success! DLL injected via InjectorSetWindowsHookEx method" << std::endl;
+											ret = true;
+											break;
+
+										case WAIT_TIMEOUT:
+										case WAIT_ABANDONED:
+										case WAIT_FAILED:
+										default:
+											std::wcout << L"[-] There was a problem ensuring that remote hook was placed. It might have worked, but there is no way to know" << std::endl;
+											break;
 									}
 
-									if (targetProc.memory().SetupHook(blackbone::RemoteMemory::MemVirtualFree) == ERROR_SUCCESS)
-									{
-										std::wcout << L"[+] MemVirtualFree() remot hook succesfully placed!" << std::endl;
-									}
-
-									if (targetProc.memory().SetupHook(blackbone::RemoteMemory::MemMapSection) == ERROR_SUCCESS)
-									{
-										std::wcout << L"[+] MemMapSection() remot hook succesfully placed!" << std::endl;
-									}
-
-									if (targetProc.memory().SetupHook(blackbone::RemoteMemory::MemUnmapSection) == ERROR_SUCCESS)
-									{
-										std::wcout << L"[+] MemUnmapSection() remot hook succesfully placed!" << std::endl;
-									}
-
-									std::wcout << L"[+] Success! DLL injected via InjectorSetWindowsHookEx method" << std::endl;
-									ret = true;
 								}
 								else
 								{
-									std::wcout << L"[-] There was a problem found while triggering the target hook" << std::endl;
+									std::wcout << L"[-] There was a problem found while triggering the target hook - Error: 0x" << std::hex << GetLastError() << std::endl;
 								}
 							}
 							else
