@@ -16,6 +16,7 @@ Besides the data collection and hunting heuristics, the project has also led to 
 contains +15 code injection techniques. The minjector tool cannot onlybe used to exercise memhunter detections, but also as a one-stop
 location to learn on well-known code injection techniques out there.
 
+Architecture deck available [here](https://drive.google.com/open?id=1hgx2FTNIkry9Nt8LOJVz_rHNhcGfJChxZVGckv7VI8E)
 
 ### Example 1: Manual run to exercise detection of reflective DLL injection - Video [here](https://www.youtube.com/watch?v=t_fR1sCENkc)
 ![Manual run to exercise detection of reflective DLL injection](https://thumbs.gfycat.com/FeistyImmaculateGaur-size_restricted.gif)
