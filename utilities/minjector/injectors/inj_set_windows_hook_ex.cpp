@@ -45,7 +45,6 @@ bool InjectorSetWindowsHookEx::Execute(const std::wstring &codeToInject, const s
 								std::wcout << L"[+] Triggering the Hook" << std::endl;
 
 								DWORD waitTimeInMS = 5000;
-							    DWORD justSomeMagicIDNumber = 0x4321;
 								static const wchar_t *EVENT_NAME = L"JustSomeMagicEventName";
 								HANDLE syncEvent = CreateEvent(NULL, FALSE, FALSE, EVENT_NAME);
 
