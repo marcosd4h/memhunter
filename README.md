@@ -5,6 +5,7 @@
 
 # Memhunter
 Automated hunting of memory resident malware at scale
+>  This project is WORK IN PROGRESS. Expect feature changes and binary releases on the upcoming weeks.
 
 ## Overview
 Memhunter is an endpoint sensor tool that is specialized in detecing resident malware, improving the threat hunter analysis process and remediation times. The tool detects and reports memory-resident malware living on endpoint processes. Memhunter detects known malicious memory injection techniques. The detection process is performed through live analysis and without needing memory dumps. The tool was designed as a replacement of memory forensic volatility plugins such as malfind and hollowfind. The idea of not requiring memory dumps helps on performing the memory resident malware threat hunting at scale, without manual analysis, and without the complex infrastructure needed to move dumps to forensic environments.

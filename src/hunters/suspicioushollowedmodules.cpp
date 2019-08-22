@@ -72,8 +72,16 @@ bool HunterSuspiciousHollowedModules::Execute(HunterCommon::ProcessCollection &p
 							suspiciousElement->AddModulesInformation(wstrModule);
 
 							suspiciousElement->AddNewProperty(ReportAttributes::REPORT_MODULE_NAME, wstrModule);
-							suspiciousElement->AddNewProperty(L"IMAGE_DOS_SIGNATURE DISK", GeneralHelpers::GetHexString((PVOID)pMainModuleDiskDosHdr->e_magic));
-							suspiciousElement->AddNewProperty(L"IMAGE_DOS_SIGNATURE MEMORY", GeneralHelpers::GetHexString((PVOID)pMainModuleMemoryDosHdr->e_magic));
+							suspiciousElement->AddNewProperty(L"Image Size DISK", GeneralHelpers::GetHexString((PVOID)mainModuleDisk.imageSize()));
+							suspiciousElement->AddNewProperty(L"Image Size MEMORY", GeneralHelpers::GetHexString((PVOID)mainModuleMemory.imageSize()));
+							suspiciousElement->AddNewProperty(L"Headers Size DISK", GeneralHelpers::GetHexString((PVOID)mainModuleDisk.headersSize()));
+							suspiciousElement->AddNewProperty(L"Headers Size MEMORY", GeneralHelpers::GetHexString((PVOID)mainModuleMemory.headersSize()));
+							suspiciousElement->AddNewProperty(L"DLL Characteristics DISK", GeneralHelpers::GetHexString((PVOID)mainModuleDisk.DllCharacteristics()));
+							suspiciousElement->AddNewProperty(L"DLL Characteristics MEMORY", GeneralHelpers::GetHexString((PVOID)mainModuleMemory.DllCharacteristics()));
+							suspiciousElement->AddNewProperty(L"Imports Size DISK", GeneralHelpers::GetHexString((PVOID)mainModuleDisk.GetImports().size()));
+							suspiciousElement->AddNewProperty(L"Imports Size MEMORY", GeneralHelpers::GetHexString((PVOID)mainModuleMemory.GetImports().size()));
+							suspiciousElement->AddNewProperty(L"Sections Size DISK", GeneralHelpers::GetHexString((PVOID)mainModuleDisk.sections().size()));
+							suspiciousElement->AddNewProperty(L"Sections Size MEMORY", GeneralHelpers::GetHexString((PVOID)mainModuleMemory.sections().size()));
 						}
 					}
 				}

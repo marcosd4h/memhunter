@@ -350,16 +350,12 @@ bool InjectorHelpers::CreateSuspendedProcess(const std::wstring& targetProcess,
 	memset(&targetStartupInfo, 0, sizeof(STARTUPINFOW));
 	memset(&targetProcessInfo, 0, sizeof(PROCESS_INFORMATION));
 
-	if (CreateProcessW(NULL,
-		((wchar_t *)targetProcess.c_str()),
-		NULL,
-		NULL,
-		FALSE,
-		CREATE_SUSPENDED,
-		NULL,
-		NULL,
-		&targetStartupInfo,
-		&targetProcessInfo))
+	std::wstring workingArgs(targetProcess);
+
+	if (CreateProcessW(
+		targetProcess.c_str(),
+		(LPWSTR)workingArgs.c_str(),
+		NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &targetStartupInfo, &targetProcessInfo))
 	{
 		ret = true;
 	}
